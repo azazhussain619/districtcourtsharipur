@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">All Designations</h1>
+                    <h1 class="m-0">All Courts</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <li class="breadcrumb-item active">All Designations</li>
+                        <li class="breadcrumb-item active">All Courts</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -29,7 +29,6 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Category</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -47,11 +46,10 @@
                 destroy: true,
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('designations.index') }}",
+                ajax: "{{ route('courts.index') }}",
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
-                    {data: 'category', category: 'name'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });

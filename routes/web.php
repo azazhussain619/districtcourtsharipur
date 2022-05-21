@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\CourtController;
 use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\JudgementController;
 use App\Http\Controllers\UserController;
+use App\Models\CauseList;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CauseListController;
 
@@ -44,6 +47,23 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/designations/{designation}/edit', [DesignationController::class, 'edit'])->name('designations.edit');
     Route::patch('admin/designations/{designation}', [DesignationController::class, 'update'])->name('designations.update');
 
+    Route::get('admin/courts', [CourtController::class, 'index'])->name('courts.index');
+    Route::get('admin/courts/create', [CourtController::class, 'create'])->name('courts.create');
+    Route::post('admin/courts', [CourtController::class, 'store'])->name('courts.store');
+    Route::get('admin/courts/{court}/edit', [CourtController::class, 'edit'])->name('courts.edit');
+    Route::patch('admin/courts/{court}', [CourtController::class, 'update'])->name('courts.update');
+
+    Route::get('admin/cause_lists', [CauseListController::class, 'index'])->name('cause_lists.index');
+    Route::get('admin/cause_lists/create', [CauseListController::class, 'create'])->name('cause_lists.create');
+    Route::post('admin/cause_lists', [CauseListController::class, 'store'])->name('cause_lists.store');
+    Route::get('admin/cause_lists/{cause_list}/edit', [CauseListController::class, 'edit'])->name('cause_lists.edit');
+    Route::patch('admin/cause_lists/{cause_list}', [CauseListController::class, 'update'])->name('cause_lists.update');
+
+    Route::get('admin/judgements', [JudgementController::class, 'index'])->name('judgements.index');
+    Route::get('admin/judgements/create', [JudgementController::class, 'create'])->name('judgements.create');
+    Route::post('admin/judgements', [JudgementController::class, 'store'])->name('judgements.store');
+    Route::get('admin/judgements/{judgement}/edit', [JudgementController::class, 'edit'])->name('judgements.edit');
+    Route::patch('admin/judgements/{judgement}', [JudgementController::class, 'update'])->name('judgements.update');
 
 });
 

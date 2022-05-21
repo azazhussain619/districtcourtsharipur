@@ -24,7 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'designation_id'
+        'designation_id',
+        'court_id'
     ];
 
     /**
@@ -54,5 +55,9 @@ class User extends Authenticatable
 
     public function designation(){
         return $this->belongsTo(Designation::class);
+    }
+
+    public function roles(){
+        return $this->belongsToMany(Role::class);
     }
 }

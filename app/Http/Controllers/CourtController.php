@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Designation;
+use App\Models\Court;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
-class DesignationController extends Controller
+class CourtController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,20 +18,15 @@ class DesignationController extends Controller
     {
         //
         if ($request->ajax()) {
-            $data = Designation::select('*');
+            $data = Court::select('*');
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('category', function ($row) {
-
-//                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-                    return ucwords($row->category);
-                })
                 ->addColumn('action', function ($row) {
 
 //                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
 
                     $btn = ' <div class="d-flex">
-                                          <a href="'.url("admin/designations/".$row->id."/edit").'" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                          <a href="'.url("admin/courts/".$row->id."/edit").'" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
                                           <!--<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>-->
                                       </div>';
 
@@ -41,7 +36,7 @@ class DesignationController extends Controller
                 ->make(true);
         }
 
-        return view('admin.designations.index');
+        return view('admin.courts.index');
     }
 
     /**
@@ -52,7 +47,7 @@ class DesignationController extends Controller
     public function create()
     {
         //
-        return view('admin.designations.create');
+        return view('admin.courts.create');
     }
 
     /**
@@ -65,14 +60,12 @@ class DesignationController extends Controller
     {
         //
         $attributes = request()->validate([
-            'name' => ['required', Rule::unique('designations', 'name')],
-            'category' => ['required']
+            'name' => ['required', Rule::unique('courts', 'name')]
         ]);
 
-        Designation::create($attributes);
+        Court::create($attributes);
 
-        return back()->with('success', 'Designation added!');
-
+        return back()->with('success', 'Court added!');
     }
 
     /**
@@ -95,8 +88,8 @@ class DesignationController extends Controller
     public function edit($id)
     {
         //
-        return view('admin.designations.edit', [
-            'designation' => Designation::findOrFail($id)
+        return view('admin.courts.edit', [
+            'court' => Court::findOrFail($id)
         ]);
     }
 
@@ -110,18 +103,15 @@ class DesignationController extends Controller
     public function update(Request $request, $id)
     {
         //
-
-        $designation = Designation::findOrFail($id);
+        $court = Court::findOrFail($id);
 
         $attributes = request()->validate([
-            'name' => [Rule::unique('designations', 'name')->ignore($designation)],
-            'category' => ''
+            'name' => [Rule::unique('courts', 'name')->ignore($court)]
         ]);
 
-        $designation->update($attributes);
+        $court->update($attributes);
 
-        return back()->with('success', 'Designation updated!');
-
+        return back()->with('success', 'Court updated!');
     }
 
     /**

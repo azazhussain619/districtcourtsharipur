@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Court;
 use App\Models\Designation;
 use App\Models\Profile;
 use Illuminate\Http\Request;
@@ -52,7 +53,8 @@ class UserController extends Controller
     {
         //
         return view('admin.users.create', [
-            'designations' => Designation::all()
+            'designations' => Designation::all(),
+            'courts' => Court::all()
         ]);
     }
 
@@ -76,7 +78,8 @@ class UserController extends Controller
                 'name' => $attributes['name'],
                 'email' => $attributes['email'],
                 'password' => $attributes['password'],
-                'designation_id' => $attributes['designation']
+                'designation_id' => $attributes['designation'],
+                'court_id' => $attributes['court']
             ])->profile()->create([
                 'image' => $attributes['image']
             ]);
@@ -108,7 +111,8 @@ class UserController extends Controller
 
         return view('admin.users.edit', [
             'user' => User::findOrFail($id),
-            'designations' => Designation::all()
+            'designations' => Designation::all(),
+            'courts' => Court::all()
         ]);
     }
 
@@ -139,7 +143,8 @@ class UserController extends Controller
                 'name' => $attributes['name'],
                 'email' => $attributes['email'],
                 'password' => $attributes['password'],
-                'designation_id' => $attributes['designation']
+                'designation_id' => $attributes['designation'],
+                'court_id' => $attributes['court']
             ]);
 
             if(request('image') ?? false) {
@@ -173,6 +178,7 @@ class UserController extends Controller
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user)],
             'password' => 'required',
             'designation' => 'required',
+            'court' => 'required',
             'image' => $user->exists ? ['image'] : ['required', 'image']
         ]);
     }

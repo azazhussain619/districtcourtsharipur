@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cause_lists', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('court_id');
-            $table->date('date');
-            $table->string('normal_file');
-            $table->string('old_file');
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('role_id');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cause_lists');
+        Schema::dropIfExists('role_user');
     }
 };

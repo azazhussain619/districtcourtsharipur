@@ -4,19 +4,19 @@
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Success!</strong> {{ session('success') }}
         </div>
-    @endif
+@endif
 
-    <!-- Content Header (Page header) -->
+<!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Add New Designation</h1>
+                    <h1 class="m-0">Add New Cause List</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Add New Designation</li>
+                        <li class="breadcrumb-item active">Add New Cause List</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -30,27 +30,31 @@
 
             <div class="row">
                 <div class="col-12">
-                    <form method="POST" action="{{ route('designations.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('cause_lists.store') }}" enctype="multipart/form-data">
                         @csrf
 
-                        <x-forms.input name="name" />
                         <div class="form-group">
-                            <x-forms.label name="category"/>
-                            <select name="category" id="category" class="form-control">
-                                <option value="staff" selected>Staff</option>
-                                <option value="judges">Judges</option>
+                            <x-forms.label name="court"/>
+                            <select name="court" id="court" class="form-control">
+                                @foreach($courts as $court)
+                                    <option value="{{ $court->id }}">{{ $court->name }}</option>
+                                @endforeach
                             </select>
-                            @error('category')
+                            @error('court')
                             <span class="text-sm text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <x-forms.input type="date" name="date"/>
+
+                        <x-forms.input type="file" name="normal_file"/>
+                        <x-forms.input type="file" name="old_file"/>
 
                         <x-forms.button>Submit</x-forms.button>
 
-{{--                        <div class="form-group">--}}
-{{--                            <label for="email">Email address:</label>--}}
-{{--                            <input type="email" class="form-control" placeholder="Enter email" id="email">--}}
-{{--                        </div>--}}
+                        {{--                        <div class="form-group">--}}
+                        {{--                            <label for="email">Email address:</label>--}}
+                        {{--                            <input type="email" class="form-control" placeholder="Enter email" id="email">--}}
+                        {{--                        </div>--}}
                     </form>
                 </div>
             </div>

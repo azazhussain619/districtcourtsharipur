@@ -47,6 +47,17 @@
                                 <span class="text-sm text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <x-forms.label name="court"/>
+                            <select name="court" id="court" class="form-control">
+                                @foreach($courts as $court)
+                                    <option value="{{ $court->id }}">{{ $court->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('court')
+                            <span class="text-sm text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <x-forms.input type="file" name="image"/>
 
                         <x-forms.button>Submit</x-forms.button>
